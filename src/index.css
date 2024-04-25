@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root{
+    --bg-col : #F0F6FF;
+    --white : #FFFFFF;
+    --title-col : #0B3051;
+    --link-col : #5D7285;
+}
+
+*{
+    font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;   
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+h2{
+    font-size: 1.2rem;
+}
+
+body{
+    background-color: var(--bg-col);
+    overflow-y:scroll;
+    overflow-x: hidden;
+}
+
+.title{
+    color: var(--title-col);
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+    background-color: var(--white);
+    box-shadow:  -1px 2px 5px grey;
+}
+
+.account-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .8rem;
+}
+
+.account-data{
+    text-align: right;
+}
+
+.grey-text{
+    color: var(--link-col);
+    font-size: .9rem;
+}
+
+.sidebar{
+    padding-left: 3rem;
+    padding-right: 3rem;
+    min-height: 85vh;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: var(--link-col);
+    z-index: -1;
+    box-shadow:  1px -1px 10px grey;
+    height: 85vh;   
+    padding-top: 2rem;
+
+}
+
+.sidebar .active{
+    font-weight: 700;
+}
+
+.side-link{
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem;
+    gap: 7px;
+}
+
+main.main-arena{
+    display: flex;
+    gap: 2rem;
+}
+
+.sidebar-img img{
+    width: 20px;
+    height: 20px;
+}
