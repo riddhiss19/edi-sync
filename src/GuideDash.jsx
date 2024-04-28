@@ -3,14 +3,14 @@ import AssignedProject from './components/AssignedProject'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 
-function GuideDash(){
+function GuideDash({ userId }) {
     return (
         <>
-            <Header />
+            <Header userId={userId} />
             <main className="main-arena">
                 <Sidebar />
             </main>
-            <AssignedProject />
+            <AssignedProject userId={userId} />
         </>
     )
 }

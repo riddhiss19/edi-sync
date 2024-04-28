@@ -16,11 +16,11 @@ function Dashboard({ userId, teamId }) {
         loadTeamData()
     }, [])
 
-    const loadData = async () => {
-        const result = await axios.get(`http://localhost:8080/getAllProjects?user_id=${userId}`)
-        console.log(result);
-        setProjects(result.data)
-    }
+        const loadData = async () => {
+            const result = await axios.get(`http://localhost:8080/getAllProjects?user_id=${userId}`)
+            console.log(result);
+            setProjects(result.data)
+        }
     const loadTeamData = async () => {
         const result = await axios.get(`http://localhost:8080/getTeam?id=${teamId}`)
         const m1 = result.data.leaderId;

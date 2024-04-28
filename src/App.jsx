@@ -23,17 +23,17 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login setUserId={setUserId} />}></Route>
         <Route path='/signup' element={<Signup setUserId={setUserId} />}></Route>
-        <Route path='/' element={<MainArena userId={1} element={<Dashboard userId={1} teamId={2} />} />} />
+        <Route path='/' element={<MainArena userId={userId} element={<Dashboard userId={userId} teamId={2} />} />} />
         <Route path='/profile' element={<MainArena element={<h1>Profile</h1>} />} />
         <Route path='*' element={<Oops />} />
         <Route path="/project" element={<ProjectDash projectId={1} />} />
-        <Route path="/LeaderProfile" element={<LeaderProfile />} />
+        <Route path="/LeaderProfile" element={<LeaderProfile userId={userId} />} />
         <Route path="/LeaderProfile/CreateProject" element={<CreateProject />} />
         <Route path="/LeaderProfile/AddMember" element={<AddTMember />} />
         <Route path="/LeaderProfile/SetProgress" element={<SetProgress />} />
         <Route path="/LeaderProfile/ScheduleMeet" element={<ScheduleMeet />} />
-        <Route path="/MemberProfile" element={<TMProfile />} />
-        <Route path='/Guide' element={<GuideDash />} />
+        <Route path="/MemberProfile" element={<TMProfile userId={1} />} />
+        <Route path='/Guide' element={<GuideDash userId={1} />} />
       </Routes>
 
 
