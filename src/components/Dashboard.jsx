@@ -1,7 +1,47 @@
 import ProjectCard from "./ProjectCard"
 import Member from "./Member"
 import { PieChart } from "@mui/x-charts"
-function Dashboard() {
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+function Dashboard({ userId, teamId }) {
+    const [projects, setProjects] = useState([]);
+    const [leader, setLeader] = useState([]);
+    const [member2, setMember2] = useState([]);
+    const [member3, setMember3] = useState([]);
+    const [member4, setMember4] = useState([]);
+
+    useEffect(() => {
+        loadData()
+        loadTeamData()
+    }, [])
+
+    const loadData = async () => {
+        const result = await axios.get(`http://localhost:8080/getAllProjects?user_id=${userId}`)
+        console.log(result);
+        setProjects(result.data)
+    }
+    const loadTeamData = async () => {
+        const result = await axios.get(`http://localhost:8080/getTeam?id=${teamId}`)
+        const m1 = result.data.leaderId;
+        const m2 = result.data.member2Id;
+        const m3 = result.data.member3Id;
+        const m4 = result.data.member4Id;
+        const mem1 = await axios.get(`http://localhost:8080/getUser?id=${m1}`)
+        const mem2 = await axios.get(`http://localhost:8080/getUser?id=${m2}`)
+        const mem3 = await axios.get(`http://localhost:8080/getUser?id=${m3}`)
+        const mem4 = await axios.get(`http://localhost:8080/getUser?id=${m4}`)
+
+        setLeader(mem1.data);
+        setMember2(mem2.data);
+        setMember3(mem3.data);
+        setMember4(mem4.data);
+
+
+
+        console.log(result);
+
+    }
     return (
         <div className="dashboard">
             <h1>
@@ -12,8 +52,10 @@ function Dashboard() {
                     <div className="project-container">
                         <h2>Projects</h2>
                         <div className="project-arena">
-                            <ProjectCard projectTitle="EDI" />
-                            <ProjectCard projectTitle="DT" />
+                            {
+                                projects.map((project) => <ProjectCard key={project.id} projectTitle={project.projectTitle} />)
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -38,10 +80,11 @@ function Dashboard() {
                     <div className="team-container">
                         <h2>Team Members:</h2>
                         <div className="team-arena">
-                            <Member name="Swarup Vishwas" pic="" isLeader={true} />
-                            <Member name="Riddhi Sonawane" pic="" isLeader={false} />
-                            <Member name="Vivek Badade" pic="" isLeader={false} />
-                            <Member name="Akshay Shingote" pic="" isLeader={false} />
+
+                            <Member name={leader.firstName} pic={leader.img} isLeader={true} />
+                            <Member name={member2.firstName} pic={member2.img} isLeader={false} />
+                            <Member name={member3.firstName} pic={member3.img} isLeader={false} />
+                            <Member name={member4.firstName} pic={member4.img} isLeader={false} />
                         </div>
                     </div>
                 </div>

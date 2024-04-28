@@ -2,7 +2,7 @@
 function Member({ pic, name, isLeader }) {
     return (
         <div className="member">
-            <div className={isLeader ? "pic leader" : "pic"}>
+            <div className="pic">
                 <img src={pic} height="60px" width="60px" alt="" />
 
             </div>

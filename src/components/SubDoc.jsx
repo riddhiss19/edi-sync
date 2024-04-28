@@ -1,35 +1,39 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
-const DocumentCard = ({ fileName, days }) => {
-  const handleOpen = () => {
-    // Implement the logic to open the file
-    console.log(`Opening ${fileName}`);
-  };
+const DocumentCard = ({ fileName, days, docLink }) => {
+
 
   return (
     <div className="document-card">
-      <h3>{fileName}</h3>
-      <p>{days} Days</p>
-      <button className="open-bu" onClick={handleOpen}>
-        Open
-      </button>      
+      <Link to={docLink} about={<h3>{fileName}</h3>} target='_blank' />
+
+      <p>Upload : {days}</p>
+
     </div>
-    
+
   );
 };
 
-const SubDoc = () => {
-  const documents = [
-    { fileName: 'FF180', days: 12 },
-    { fileName: 'Literature Review', days: 12 },
-    { fileName: 'Project PPT', days: 12 },
-  ];
+const SubDoc = ({ projectId }) => {
+  const [documents, setDocuments] = useState([]);
+  useEffect(() => {
+    loadData();
+  }, []);
+
+
+  const loadData = async () => {
+    const result = await axios.get(`http://localhost:8080/getAllDocs?id=${projectId}`)
+    setDocuments(result.data)
+  }
+
 
   return (
     <div className="submitted-documents-container">
-      {documents.map((doc, index) => (
-        <DocumentCard key={index} fileName={doc.fileName} days={doc.days} />
+      {documents.map((doc) => (
+        <DocumentCard key={doc.id} fileName={doc.docName} days={doc.upladDate} fileLink={doc.docLink} />
       ))}
     </div>
   );
