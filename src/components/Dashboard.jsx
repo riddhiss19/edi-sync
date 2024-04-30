@@ -3,8 +3,11 @@ import Member from "./Member"
 import { PieChart } from "@mui/x-charts"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-function Dashboard({ userId, teamId }) {
+function Dashboard() {
+    const userId = Cookies.get("user_id")
+    const teamId = Cookies.get("team_id")
     const [projects, setProjects] = useState([]);
     const [leader, setLeader] = useState([]);
     const [member2, setMember2] = useState([]);

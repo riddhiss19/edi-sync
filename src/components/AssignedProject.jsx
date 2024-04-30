@@ -1,9 +1,10 @@
 import ProjectCard from "./ProjectCard"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-function AssignedProject({ userId }) {
-
+function AssignedProject() {
+  const userId = Cookies.get("user_id")
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {

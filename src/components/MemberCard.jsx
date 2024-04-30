@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-function MemberCard({ userId }) {
+function MemberCard() {
+  const userId = Cookies.get("user_id")
   const [user, setUser] = useState([]);
 
   // console.log(userId)

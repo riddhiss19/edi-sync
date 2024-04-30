@@ -3,9 +3,10 @@ import Sidebar from "./components/Sidebar"
 import Header from './components/Header'
 import LeaderCard from './components/LeaderCard';
 import EditProfile from './components/EditProfile';
+import Cookies from 'js-cookie';
 
-
-function LeaderProfile({ userId }) {
+function LeaderProfile() {
+    const userId = Cookies.get("user_id")
     return (
         <>
             <Header userId={userId} />

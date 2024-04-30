@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
+import Cookies from "js-cookie";
+function Header() {
 
-function Header({ userId }) {
+    const userId = Cookies.get("user_id")
+
     const [user, setUser] = useState([]);
 
     // console.log(userId)

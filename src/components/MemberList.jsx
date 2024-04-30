@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
-const MemberList = ({ teamId }) => {
+const MemberList = () => {
 
   const [leader, setLeader] = useState([]);
   const [member2, setMember2] = useState([]);
@@ -12,10 +13,11 @@ const MemberList = ({ teamId }) => {
     // loadData()
     loadTeamData()
   }, [])
-    
 
+  const userId = Cookies.get("user_id")
   const loadTeamData = async () => {
-    const result = await axios.get(`http://localhost:8080/getTeam?id=${teamId}`)
+    console.log(userId);
+    const result = await axios.get(`http://localhost:8080/getTeamByMember?user_id=${userId}`)
     const m1 = result.data.leaderId;
     const m2 = result.data.member2Id;
     const m3 = result.data.member3Id;
@@ -24,11 +26,12 @@ const MemberList = ({ teamId }) => {
     const mem2 = await axios.get(`http://localhost:8080/getUser?id=${m2}`)
     const mem3 = await axios.get(`http://localhost:8080/getUser?id=${m3}`)
     const mem4 = await axios.get(`http://localhost:8080/getUser?id=${m4}`)
+    setLeader(mem1.data);
+    setMember2(mem2.data);
+    setMember3(mem3.data);
+    setMember4(mem4.data);
 
-    setLeader(mem1);
-    setMember2(mem2);
-    setMember3(mem3);
-    setMember4(mem4);
+    console.log(leader);
 
 
 
@@ -46,20 +49,20 @@ const MemberList = ({ teamId }) => {
       </thead>
       <tbody>
         <tr>
-          <td>{leader.name}</td>
-          <td>{leader.role}</td>
+          <td>{leader.firstName}</td>
+          <td>Leader</td>
         </tr>
         <tr>
-          <td>{member2.name}</td>
-          <td>{member2.role}</td>
+          <td>{member2.firstName}</td>
+          <td>Member</td>
         </tr>
         <tr>
-          <td>{member3.name}</td>
-          <td>{member3.role}</td>
+          <td>{member3.firstName}</td>
+          <td>Member</td>
         </tr>
         <tr>
-          <td>{member4.name}</td>
-          <td>{member4.role}</td>
+          <td>{member4.firstName}</td>
+          <td>Member</td>
         </tr>
       </tbody>
     </table>

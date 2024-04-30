@@ -6,6 +6,15 @@
       --blue-col : #5B86E5;
   }
 
+  .logout{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
   .dashboard{
       padding: 1.5rem;
       display: flex;
@@ -531,6 +540,7 @@
     padding: 10px;
   }
   .pro_img {
+    border-radius: 100%;
     object-fit: auto;
     object-position: center;
     width: 100%;
@@ -578,6 +588,7 @@
   .pro_img-2 {
     object-fit: auto;
     object-position: center;
+    border-radius: 100%;
     width: 30px;
     fill: var(--Text, #4b4b4b);
   }
@@ -606,6 +617,7 @@
     object-fit: auto;
     object-position: center;
     width: 31px;
+    border-radius: 100%;
   }
   .tmcard-9 {
     flex-grow: 1;

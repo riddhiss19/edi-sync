@@ -24,12 +24,12 @@ const Comment = () => {
             <span>{item.reviewer}</span>
           </div>
           <div className="review-comment">{item.comment}</div>
-         
-         <div className="bottom-comment"> <div className="review-timestamp">{item.timestamp}</div>
+
+          <div className="bottom-comment"> <div className="review-timestamp">{item.timestamp}</div>
             <div className="review-actions">
-                <i className="fa fa-thumbs-up"></i>
+              <i className="fa fa-thumbs-up"></i>
             </div>
-         </div>
+          </div>
         </div>
       ))}
     </div>

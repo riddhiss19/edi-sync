@@ -1,23 +1,45 @@
 // eslint-disable-next-line react/prop-types
-function SideLink({ img_src, link_text, isActive }) {
+import { Link, useNavigate, Outlet } from "react-router-dom";
+// import { NavLink } from 'react-router-dom'
 
 
-    var linkText = ""
+function SideLink({ tot, img_src, link_text, isActive }) {
+    const navigate = useNavigate();
+    // console.log(tot);
+    let linkText;
 
     if (isActive) {
-        linkText = <div className="side-text active">{link_text}</div>
+        linkText = <div className="side-text active" onClick={() => {
+            console.log("hello");
+            // navigate(tot)
+        }}>{link_text}</div>
     }
     else {
-        linkText = <div className="side-text">{link_text}</div>
+        linkText = <div className="side-text" onClick={() => {
+            console.log("hello");
+            // navigate(tot)
+        }}>{link_text}</div>
 
     }
 
-    return (
-        <div className="side-link">
-            <div className="sidebar-img"><img src={img_src} alt="" /></div>
-            {linkText}
 
-        </div>
+
+
+
+    return (
+        // <NavLink to={tot} className="side-link" activeClassName="active">
+        <>
+            <div className="side-link">
+                {/* <div className="sidebar-img"><img src={img_src} alt="" /></div> */}
+                <span  > {linkText} </span>
+                <Link to="/" className="side-link" activeClassName="active">tes</Link>
+            </div>
+
+
+
+
+            <Outlet />
+        </>
     )
 }
 

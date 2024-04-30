@@ -2,8 +2,10 @@ import './App.css'
 import AssignedProject from './components/AssignedProject'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
+import Cookies from 'js-cookie'
 
-function GuideDash({ userId }) {
+function GuideDash() {
+    const userId = Cookies.get("user_id");
     return (
         <>
             <Header userId={userId} />

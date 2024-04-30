@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-function LeaderCard({ userId }) {
+function LeaderCard() {
+  const userId = Cookies.get("user_id")
   const [user, setUser] = useState([]);
 
   // console.log(userId)
   useEffect(() => {
     loadData()
   }, [])
-
+  
   const loadData = async () => {
     const result = await axios.get(`http://localhost:8080/getUser?id=${userId}`)
     console.log(result);
@@ -22,7 +24,7 @@ function LeaderCard({ userId }) {
         <div className="tmcard-2">
           <img
             loading="lazy"
-            src={user.img}
+            src={user.imgSrc}
             height="100px"
             className="pro_img"
           />

@@ -2,17 +2,22 @@ import { Link, useNavigate } from 'react-router-dom'
 import './assets/css/login.css'
 import bulb from './assets/img/bulb.png'
 import rect from './assets/img/Rectangle-login.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-function Signup({ setUserId }) {
+import Cookies from 'js-cookie'
+function Signup() {
     const navigate = useNavigate()
     const [userValues, setUserValues] = useState({
         "firstName": "",
         "email": "",
         "lastName": "",
         "password": "",
-        "role": ""
+        "role": "",
+        "imgSrc": "",
     })
+
+
+
 
     const onChange = (e) => {
         console.log(userValues);
@@ -23,8 +28,8 @@ function Signup({ setUserId }) {
         e.preventDefault()
         console.log("hey");
         const result = await axios.post("http://localhost:8080/addUser", userValues)
-        setUserId(result.data.id)
         navigate("/")
+        Cookies.set("user_id", result.data.id, { path: '/', expires: 7 })
     }
 
     return (
@@ -38,7 +43,7 @@ function Signup({ setUserId }) {
                 <h1 className="title" style={{ fontSize: "4rem" }}>Signup</h1>
                 <form onSubmit={(e) => { onSubmit(e) }}>
                     <div className="input">
-                        <input type="email" name='email' placeholder='Username' onChange={(e) => {
+                        <input type="email" name='email' placeholder='Email' onChange={(e) => {
                             onChange(e)
                         }} />
                     </div>
@@ -68,6 +73,12 @@ function Signup({ setUserId }) {
                             <option value="member">Member</option>
                             <option value="guide">Guide</option>
                         </select>
+                    </div>
+
+                    <div className="input">
+                        <input type="text" name='imgSrc' placeholder='Image URL' onChange={(e) => {
+                            onChange(e)
+                        }} />
                     </div>
 
                     <div className="input">

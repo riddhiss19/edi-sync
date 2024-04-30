@@ -3,9 +3,10 @@ import Sidebar from "./components/Sidebar"
 import Header from './components/Header'
 import EditProfile from './components/EditProfile';
 import MemberCard from './components/MemberCard';
+import Cookies from 'js-cookie';
 
-
-function TMProfile({ userId }) {
+function TMProfile() {
+    const userId = Cookies.get("user_id")
     return (
         <>
             <Header userId={userId} />
