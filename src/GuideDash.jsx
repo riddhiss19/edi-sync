@@ -2,15 +2,17 @@ import './App.css'
 import AssignedProject from './components/AssignedProject'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
+import Cookies from 'js-cookie'
 
-function GuideDash(){
+function GuideDash() {
+    const userId = Cookies.get("user_id");
     return (
         <>
-            <Header />
+            <Header userId={userId} />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={false} />
             </main>
-            <AssignedProject />
+            <AssignedProject userId={userId} />
         </>
     )
 }

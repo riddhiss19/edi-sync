@@ -8,7 +8,7 @@ function ScheduleMeet() {
     <>
         <Header />
         <main className="main-arena">   
-            <Sidebar />
+            <Sidebar isLeader={true}  />
         </main>
         <div className="lcgroup-card"><LeaderCard /> </div>
         <LeaMeet />

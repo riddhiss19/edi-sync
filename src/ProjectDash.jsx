@@ -1,20 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import './App.css'
-import Sidebar  from "./components/Sidebar";
+import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Project from "./components/Project";
 
 
 function ProjectDash() {
-    
 
-    return(
+    const { projectId } = useParams()
+    return (
         <>
             <Header />
             <main className="main-arena">
-                <Sidebar />
-            </main>  
-            <Project />
+                <Sidebar isLeader={true} />
+            </main>
+            <Project projectId={projectId} />
         </>
     )
 

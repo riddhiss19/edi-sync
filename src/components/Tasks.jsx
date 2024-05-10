@@ -1,75 +1,60 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import 'font-awesome/css/font-awesome.min.css';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const Task = ({ task, startDate, endDate, duration, status, assignedTo, onStatusChange }) => {
   const handleStatusChange = () => {
-    onStatusChange(task.id, !task.completed);
+    // onStatusChange(task.id, !task.completed);
   };
 
   return (
     <div className="task-item">
       <div className="task-details">
+        <i className="fa fa-tasks"></i>
         <div className="task-name">
-          <i className="fas fa-cog"></i> {task.name}
+          {task}
         </div>
         <div className="task-status">
-          <span className={`status-indicator ${task.completed ? 'completed' : 'canceled'}`}>
-            {task.completed ? 'Completed' : 'Canceled'}
+          <span className={`status-indicator ${status ? 'completed' : 'canceled'}`}>
+            {status}
           </span>
         </div>
       </div>
       <div className="task-metadata">
         <div className="task-dates">
-          <div>Start Date: {startDate}</div>
-          <div>End Date: {endDate}</div>
+          <div>Due Date: {endDate}</div>
         </div>
-        <div className="task-duration">{duration}</div>
         <div className="task-assigned-to">
-          <i className="fas fa-user"></i> {assignedTo}
         </div>
       </div>
-        <div className="task-status-toggle">
-          <input
-            type="checkbox"
-            checked={task.completed}
-            onChange={handleStatusChange}
-          />
-        </div>
-      
+      <div className="task-status-toggle">
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={handleStatusChange}
+        />
+      </div>
+
     </div>
   );
 };
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      name: 'Make an Automatic Payment System that enable the design',
-      assignedTo: 'Ritanjo Valmata',
-      startDate: '25/3/2023',
-      endDate: '25/3/2023',
-      duration: '00:30:00',
-      completed: false,
-    },
-    {
-      id: 2,
-      name: 'Make an Automatic Payment System that enable the design',
-      assignedTo: 'Hitali Spandana',
-      startDate: '25/3/2023',
-      endDate: '25/3/2023',
-      duration: '00:30:00',
-      completed: true,
-    },
-    {
-        id: 3,
-        name: 'Make an Automatic Payment System that enable the design',
-        assignedTo: 'Hitali Spandana',
-        startDate: '25/3/2023',
-        endDate: '25/3/2023',
-        duration: '00:30:00',
-        completed: false,
-      },
-  ]);
+
+  const userId = Cookies.get("user_id")
+
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const loadData = async () => {
+    const data = await axios.get(`http://localhost:8080/getAllTasks?id=${userId}`)
+    setTasks(data.data)
+  }
+
 
   const handleStatusChange = (taskId, completed) => {
     setTasks((prevTasks) =>
@@ -84,12 +69,10 @@ const Tasks = () => {
       {tasks.map((task) => (
         <Task
           key={task.id}
-          task={task}
-          startDate={task.startDate}
-          endDate={task.endDate}
-          duration={task.duration}
+          task={task.title}
+          endDate={task.dueDate}
           status={task.completed ? 'Completed' : 'Canceled'}
-          assignedTo={task.assignedTo}
+          assignedTo={task.ownerId}
           onStatusChange={handleStatusChange}
         />
       ))}
@@ -97,4 +80,86 @@ const Tasks = () => {
   );
 };
 
+
+
 export default Tasks;
+
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+
+// const Task = ({ task, endDate, status, assignedTo, onStatusChange }) => {
+//   // const handleStatusChange = () => {
+//   //   onStatusChange(task.id, !task.completed);
+//   // };
+
+//   return (
+//     <div className="task-item">
+//       <div className="task-details">
+//         <div className="task-name">
+//           <i className="fas fa-cog"></i> {task}
+//         </div>
+//         <div className="task-status">
+//           <span className={'canceled'}>
+//             {'Canceled'}
+//           </span>
+//         </div>
+//       </div>
+//       <div className="task-metadata">
+//         <div className="task-dates">
+//           <div>End Date: {endDate}</div>
+//         </div>
+//         <div className="task-assigned-to">
+//           <i className="fas fa-user"></i> {assignedTo}
+//         </div>
+//       </div>
+//       <div className="task-status-toggle">
+//         <input
+//           type="checkbox"
+//         />
+//       </div>
+
+//     </div>
+//   );
+// };
+
+// const Tasks = ({ projectId }) => {
+
+
+//   const [tasks, setTasks] = useState([])
+
+//   useEffect(() => {
+//     loadData()
+//   }, [])
+
+//   const loadData = async () => {
+//     const data = await axios.get(`http://localhost:8080/getAllTasks?id=${projectId}`)
+//     setTasks(data.data)
+//   }
+
+//   const handleStatusChange = (taskId, completed) => {
+//     // setTasks((prevTasks) =>
+//     //   prevTasks.map((task) =>
+//     //     task.id === taskId ? { ...task, completed } : task
+//     //   )
+//     // );
+
+//     console.log("completed");
+//   };
+
+//   return (
+//     <div className="tasks-container">
+//       {tasks.map((task) => (
+//         <Task
+//           key={task.id}
+//           task={task.title}
+//           endDate={task.dueDate}
+//           status={task.status}
+//           assignedTo={task.assignedTo}
+//           onStatusChange={handleStatusChange}
+//         />
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default Tasks;
