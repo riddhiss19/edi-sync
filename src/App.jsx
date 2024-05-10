@@ -27,15 +27,15 @@ function App() {
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/' element={<MainArena />} />
         <Route path='*' element={<Oops />} />
-        <Route path="/project" element={<ProjectDash projectId={1} />} />
+        <Route path="/project/:projectId" element={<ProjectDash />} />
         <Route path="/LeaderProfile" element={<LeaderProfile />} />
-        <Route path="/LeaderProfile/CreateProject" element={<CreateProject />} />
+        {/* <Route path="/LeaderProfile/CreateProject" element={<CreateProject />} /> */}
         <Route path="/LeaderProfile/AddMember" element={<AddTMember />} />
-        <Route path="/LeaderProfile/SetProgress" element={<SetProgress />} />
+        <Route path="/SetProgress/:projectId" element={<SetProgress />} />
         <Route path="/LeaderProfile/ScheduleMeet" element={<ScheduleMeet />} />
         <Route path="/MemberProfile" element={<TMProfile />} />
         <Route path='/Guide' element={<GuideDash />} />
-        <Route path='/Guide/Project' element={<GuideProject />} />
+        <Route path='/Guide/Project/:projectId' element={<GuideProject />} />
         <Route path='/Guide/Profile' element={<GuideProfile />} />
         <Route path='/Tasks' element={<TaskViewLea />} />
         <Route path='/Logout' element={<Logout />} />

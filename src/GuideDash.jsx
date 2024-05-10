@@ -10,7 +10,7 @@ function GuideDash() {
         <>
             <Header userId={userId} />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={false} />
             </main>
             <AssignedProject userId={userId} />
         </>

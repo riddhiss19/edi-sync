@@ -8,25 +8,25 @@ function CreatePro() {
     const userId = Cookies.get("user_id")
     const navigate = useNavigate()
 
-    const [teamId, setTeamId] = useState()
+    // const [teamId, setTeamId] = useState()
 
     useEffect(() => {
         loadData()
     }, [])
-
-    const loadData = async () => {
-        const result = await axios.get(`http://localhost:8080/getTeamByMember?user_id=${userId}`)
-        setTeamId(result.data.id)
-    }
-
-
     const [projectValues, setProjectValues] = useState({
         "projectTitle": "",
         "projectDetails": "",
         "projectCat": "",
-        "projectProgress": 0,
-        "teamId": teamId,
+        "projectProgress": 30,
+        "teamId": 0
     })
+
+    const loadData = async () => {
+        const result = await axios.get(`http://localhost:8080/getTeamByMember?user_id=${userId}`)
+        setProjectValues({ ...projectValues, "teamId": result.data.id })
+    }
+
+
     const onChange = (e) => {
         console.log(projectValues);
         setProjectValues({ ...projectValues, [e.target.name]: e.target.value })

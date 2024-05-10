@@ -12,7 +12,7 @@ function CreateProject() {
         <>
             <Header />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={true} />
             </main>
             <div className='lcgroup-card'> <LeaderCard userId={userId} /></div>
             <CreatePro userId={userId} />

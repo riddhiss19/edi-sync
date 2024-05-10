@@ -8,7 +8,7 @@ function GuideProfile(){
         <>
             <Header />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={false} />
             </main>
             <div className='lcgroup-card'> <GuideCard /> </div>
             <GuideEditProfile />

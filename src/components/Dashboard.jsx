@@ -4,10 +4,10 @@ import { PieChart } from "@mui/x-charts"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
     const userId = Cookies.get("user_id")
-    const teamId = Cookies.get("team_id")
     const [projects, setProjects] = useState([]);
     const [leader, setLeader] = useState([]);
     const [member2, setMember2] = useState([]);
@@ -19,12 +19,17 @@ function Dashboard() {
         loadTeamData()
     }, [])
 
-        const loadData = async () => {
-            const result = await axios.get(`http://localhost:8080/getAllProjects?user_id=${userId}`)
-            console.log(result);
-            setProjects(result.data)
-        }
+    const loadData = async () => {
+        const result = await axios.get(`http://localhost:8080/getAllProjects?user_id=${userId}`)
+        console.log(result);
+        setProjects(result.data)
+
+        const team = await axios.get(`http://localhost:8080/getTeamByMember?user_id=${userId}`)
+        console.log(team);
+        Cookies.set("team_id", team.data.id)
+    }
     const loadTeamData = async () => {
+        const teamId = Cookies.get("teamId")
         const result = await axios.get(`http://localhost:8080/getTeam?id=${teamId}`)
         const m1 = result.data.leaderId;
         const m2 = result.data.member2Id;
@@ -56,9 +61,12 @@ function Dashboard() {
                         <h2>Projects</h2>
                         <div className="project-arena">
                             {
-                                projects.map((project) => <ProjectCard key={project.id} projectTitle={project.projectTitle} />)
+                                projects.map((project) => <>
+                                    <Link to={`/project/${project.id}`}  >
+                                        <ProjectCard key={project.id} projectTitle={project.projectTitle} projectDesc={project.projectDetails} projectTeam={project.teamId} />
+                                    </Link>
+                                </>)
                             }
-
                         </div>
                     </div>
                 </div>
@@ -69,10 +77,8 @@ function Dashboard() {
                             series={[
                                 {
                                     data: [
-                                        { id: 0, value: 25, label: 'Completed' },
-                                        { id: 1, value: 25, label: 'On Hold' },
-                                        { id: 2, value: 25, label: 'On Progress' },
-                                        { id: 3, value: 25, label: 'Pending' },
+                                        { id: 0, value: 1, label: 'Completed' },
+                                        { id: 3, value: 3, label: 'Pending' },
                                     ],
                                 },
                             ]}
@@ -80,7 +86,7 @@ function Dashboard() {
                             height={200}
                         />
                     </div>
-                    <div className="team-container">
+                    {/* <div className="team-container">
                         <h2>Team Members:</h2>
                         <div className="team-arena">
 
@@ -89,7 +95,7 @@ function Dashboard() {
                             <Member name={member3.firstName} pic={member3.img} isLeader={false} />
                             <Member name={member4.firstName} pic={member4.img} isLeader={false} />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

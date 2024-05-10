@@ -30,7 +30,7 @@ function Header() {
                     <div className="account-loc grey-text"> {user.role} </div>
                 </div>
                 <div className="account-img">
-                    <img src="src/assets/img/leader.png" alt="" width="60px" height="60px" />
+                    <img src={user.imgSrc} alt="" width="60px" height="60px" />
                 </div>
             </div>
         </nav>

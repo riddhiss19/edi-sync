@@ -15,6 +15,12 @@ function Login() {
         "password": "",
     })
 
+    const [type, setType] = useState("leader")
+
+    const onChangeType = (e) => {
+        setType(e.target.value)
+    }
+
     const onChange = (e) => {
         console.log(userValues);
         setUserValues({ ...userValues, [e.target.name]: e.target.value })
@@ -25,12 +31,15 @@ function Login() {
         console.log("hey");
         const result = await axios.post("http://localhost:8080/login", userValues)
         console.log(result);
-        
+
         if (result.data == "")
             setError("Incorrect Credentials")
         else {
             Cookies.set("user_id", result.data.id, { path: '/', expires: 7 })
-            navigate("/")
+            if (type == "leader" || type == "member")
+                navigate("/")
+            else
+                navigate("/Guide")
         }
 
         // setUserId(result.data.id)
@@ -53,13 +62,23 @@ function Login() {
                         }} />
                     </div>
                     <div className="input">
-                        <input type="text" name='password' placeholder='Password' onChange={(e) => {
+                        <input type="password" name='password' placeholder='Password' onChange={(e) => {
                             onChange(e)
                         }} />
                     </div>
 
                     <div className="input">
-                        <button>Register</button>
+                        <select name="role" onChange={(e) => {
+                            onChangeType(e)
+                        }} defaultValue="leader">
+                            <option value="leader">Leader</option>
+                            <option value="member">Member</option>
+                            <option value="guide">Guide</option>
+                        </select>
+                    </div>
+
+                    <div className="input">
+                        <button>Login</button>
                     </div>
                     <div className="error">
                         {error}

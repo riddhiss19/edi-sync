@@ -11,7 +11,7 @@ function TMProfile() {
         <>
             <Header userId={userId} />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={true} />
             </main>
             <div className='lcgroup-card'> <MemberCard userId={userId} /></div>
             <EditProfile />

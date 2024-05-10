@@ -86,7 +86,7 @@ function Signup() {
                     </div>
 
                     <div>
-                        New Here? <Link className='link' to='/signup'>Signup</Link>
+                        Already a member? <Link className='link' to='/login'>Login</Link>
                     </div>
                 </form>
             </div>

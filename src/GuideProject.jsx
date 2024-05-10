@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import './App.css'
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
@@ -6,14 +6,14 @@ import GuidePro from "./components/GuidePro";
 
 function GuideProject() {
 
-
+    const { projectId } = useParams()
     return (
         <>
             <Header />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={false} />
             </main>
-            <GuidePro />
+            <GuidePro projectId={projectId} />
 
         </>
     )

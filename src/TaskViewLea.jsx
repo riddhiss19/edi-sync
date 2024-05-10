@@ -13,7 +13,7 @@ function TaskViewLea() {
         <>
             <Header />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={true} />
             </main>
             {isAdd ? <Popup setIsAdd={setIsAdd} /> : <TaskLeader setIsAdd={setIsAdd} />}
 

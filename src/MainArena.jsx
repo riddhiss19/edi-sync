@@ -11,7 +11,7 @@ function MainArena() {
         <>
             <Header userId={userId} />
             <main className="main-arena">
-                <Sidebar />
+                <Sidebar isLeader={true} />
                 <Dashboard userId={userId} teamId={2} />
             </main>
         </>

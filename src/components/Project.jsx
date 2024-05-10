@@ -5,8 +5,13 @@ import Comment from "./Comment";
 import 'font-awesome/css/font-awesome.min.css';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import DocPopup from "./DocPopup";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Project({ projectId }) {
+  const navigate = useNavigate()
+  console.log(projectId);
   const now = 60;
 
   const [projectDetails, setProjectDetails] = useState([])
@@ -15,10 +20,17 @@ function Project({ projectId }) {
     loadData()
   }, [])
 
+  const [isAddDoc, setIsAddDoc] = useState(false)
+
   const loadData = async () => {
     const result = await axios.get(`http://localhost:8080/getProjectDetails?id=${projectId}`)
     console.log(result);
     setProjectDetails(result.data)
+    if (result.data == null) navigate("/error")
+  }
+
+  const setChaneg = () => {
+    setIsAddDoc(prev => !prev)
   }
 
 
@@ -26,14 +38,7 @@ function Project({ projectId }) {
     <div className="box">
       <div className="group-card">
         <div className="overlap">
-          <div className="icon-text">
-            <img className="img" src="src/assets/img/attach.png" />
-            <div className="text-wrapper">3</div>
-            <div className="div">
-              <img className="img" src="src/assets/img/message.png" />
-              <div className="text-wrapper">2</div>
-            </div>
-          </div>
+
           <div className="text-wrapper-2">{projectDetails.projectTitle}</div>
           <p className="p">
             {projectDetails.projectDetails}
@@ -53,8 +58,12 @@ function Project({ projectId }) {
       </div>
 
       <div className="docdiv">
-        <span className="top"><h1>Submitted Documents</h1> <button className="addDoc"> <i className="fa fa-plus"></i></button> </span>
-        <SubDoc projectId={projectId} />
+        <span className="top">
+          {isAddDoc ? <h1>Submit Documents</h1> : <h1>Submitted Documents</h1>}
+
+          <button className="addDoc" onClick={setChaneg}> <i className="fa fa-plus"></i></button> </span>
+        {isAddDoc ? <DocPopup projectId={projectId} /> : <SubDoc projectId={projectId} />}
+
       </div>
 
       <div className="docdiv2">
@@ -62,10 +71,13 @@ function Project({ projectId }) {
         <Tasks projectId={projectId} />
       </div>
 
-      {/* <div className="comment">
-        <span className="top3"><h1>Guide Review</h1></span>
-        <Comment />
-      </div> */}
+      <div className="comment">
+        <Link to={`/SetProgress/${projectId}`}>
+          <div className="profile-details">
+            <button className="open-bu">Set Progress</button>
+          </div>
+        </Link>
+      </div>
 
     </div>
 

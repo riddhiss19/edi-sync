@@ -12,9 +12,10 @@ function Popup({ setIsAdd }) {
   const [taskValues, settaskValues] = useState({
     "title": "",
     "ownerId": userId,
-    "assignedId": "",
+    "assignedId": userId,
     "description": "",
-    "dueDate": ""
+    "dueDate": "",
+    "taskEmail": ""
   })
 
   const onChange = (e) => {
@@ -24,15 +25,23 @@ function Popup({ setIsAdd }) {
 
   const submit = async (e) => {
     e.preventDefault()
-    let member2Id = await axios.get(`http://localhost:8080/getUserByEmail?email=${taskValues.assignedId}`);
+    axios.get(`http://localhost:8080/getUserByEmail?email=${taskValues.taskEmail}`)
+      .then((member2Id) => {
 
 
-    settaskValues({ ...taskValues, "assignedId": member2Id.data.id })
+        settaskValues({ ...taskValues, "assignedId": member2Id.data.id })
+        console.log(taskValues);
+
+        setTimeout(() => {
+          axios.post("http://localhost:8080/addTask", taskValues).then(data => console.log(data.data));
+
+          setIsAdd(false)
+        }, 3000)
 
 
-    await axios.post("http://localhost:8080/addTask", taskValues);
 
-    setIsAdd(false)
+      })
+
 
 
   }
@@ -42,7 +51,7 @@ function Popup({ setIsAdd }) {
     <>
       <form onSubmit={(e) => submit(e)}>
         <div className="ap-block">
-          <span className="top2"><h1>Tasks</h1> <button onClick={() => setIsAdd(false)} > <i>x</i></button> </span>
+          <span className="top2"><h1>Tasks</h1> <button className="NotButton" onClick={() => setIsAdd(false)} > <i>x</i></button> </span>
           <div className="task-details-container">
             <div className="popup-inner">
               <div className="task-details-header">
@@ -77,7 +86,7 @@ function Popup({ setIsAdd }) {
                   <div className="task-details">
                     <div className="pform-group">
                       <div className="subp">
-                        <input type="email" id="completed" name="assignedId" placeholder="Assigned To Email Id" onChange={(e) => {
+                        <input type="email" id="completed" name="taskEmail" placeholder="Assigned To Email Id" onChange={(e) => {
                           onChange(e)
                         }} />
                       </div>
